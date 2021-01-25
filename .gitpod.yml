@@ -1,0 +1,18 @@
+image:
+  file: .gitpod.Dockerfile
+
+# This will expose all necessary ports needed for your VNC image
+ports:
+  - port: 6080
+    onOpen: open-preview
+  - port: 5900
+    onOpen: ignore
+  - port: 35900
+    onOpen: ignore
+
+# This will make it so that on workspace start it will run a file called `app.py`
+tasks:
+  - init: pip3 install -r requirements.txt
+  - command: find ./ -iname "*.sh" -exec chmod +x {} +
+  - command: export $(cat .env | sed '/^$/d; /#[[:print:]]*$/d')
+  # - command: heroku config:set $(cat .env | sed '/^$/d; /#[[:print:]]*$/d')
